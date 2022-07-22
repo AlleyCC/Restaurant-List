@@ -9,6 +9,8 @@
  
  ## Environment Setup || 環境建置
  - [Node.js](https://nodejs.org/en/)
+ - express@4.16.4
+ - express-handlebars@3.0.0
  
  
  ## Install || 安裝  
@@ -22,21 +24,13 @@
  ```
  3.安裝npm
  ```
- npm install
+ npm run dev
  ```
- 4.安裝套件Express
- ```
- npm i express@4.16.4
- ```
- 5.安裝套件Express-Handlebars
- ```
- npm i express-handlebars@3.0.0
- ```
- 6.執行檔案
+ 4.執行檔案
  ```
  nodemon app.js
  ```
- 7.至瀏覽器網址欄輸入
+ 5.至瀏覽器網址欄輸入
  ```
  http://localhost:3000
  ```
