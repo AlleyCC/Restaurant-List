@@ -24,11 +24,11 @@ app.get('/restaurants/:id', (req, res) => {
 // 搜尋
 app.get('/search', (req, res) => {
   
-  const keyword = req.query.keyword.replace(/\s*/g, '')
+  const keyword = req.query.keyword
   //依據餐廳名稱或類別進行搜尋
   const restaurants = restaurantList.results.filter((item) => {
-    return item.name.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase()}`) || item.category.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase()}`)})
-  
+    return item.name.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`) || item.category.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`)})
+    // .replace(/\s*/g, '')
   //有則顯示搜尋結果，無則跳出搜尋失敗的提示
   if (restaurants.length >= 1){
     res.render('index', { restaurants: restaurants, keyword: keyword })
