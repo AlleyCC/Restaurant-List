@@ -12,6 +12,7 @@ db.on('error', () => {
 })
 db.once('open', () => {
   console.log('MongoDB connected!')
+  console.log(process.env.MONGODB_URI)
 })
 
 app.use(express.static('public'))
