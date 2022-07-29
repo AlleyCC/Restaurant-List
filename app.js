@@ -36,9 +36,10 @@ app.get('/', (req, res) => {
 // 餐廳詳細資訊頁面
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const restaurant = restaurantList.results.find(item => item.id.toString() === req.params.id)
-  
-  res.render('show', { restaurant })
+  return RestaurantList.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(err => console.log(err))
 })
 
 // 搜尋
