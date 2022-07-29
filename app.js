@@ -2,12 +2,22 @@ const express = require('express')
 const app = express()
 const port = 3000
 const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
+const mongoose = require('mongoose')
+const db = mongoose.connection
+
+mongoose.connect(process.env.MONGODB_URI)
+
+db.on('error', () => {
+  console.log('error')
+})
+db.once('open', () => {
+  console.log('MongoDB connected!')
+})
 
 app.use(express.static('public'))
 
 //載入handlebars後，設定template engine內容
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({ defaultLayout: 'main', extname: ".hbs" }))
 app.set('view engine', 'handlebars')
 
 // 餐廳清單列表
