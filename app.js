@@ -58,10 +58,19 @@ app.get('/restaurants/:id', (req, res) => {
 //   } 
 // })
 
-//get: new頁面
-// app.get('/restaurants', (req, res) => {
-//   res.render('new')
-// })
+// get: new頁面
+app.get('/restaurantlists/new', (req, res) => {
+  console.log('conneting to new page')
+  res.render('new')
+})
+
+//post: new頁面
+app.post('/restaurantlists', (req, res) => {
+  console.log(req.body)
+  return RestaurantList.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
 
 // server監聽設定
 app.listen(port, () =>{

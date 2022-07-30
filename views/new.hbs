@@ -1,7 +1,39 @@
-<h1>Me Find Another One!!</h1>
-<p>__________________________________________</p>
-<h2>Here's its information!</h2>
-<form action="/restaurants" method="POST">
-  <input type="text" palceholder="the name of FANCY Restaurant..." name="name" value="">
-  <button type="submit">submit</button>
-</form>
+
+<div class="container search-bar">
+  <div class="search-bar-outer">
+    <div class="search-bar-inner text-center" >
+      <h4 class="mb-2">Me Find Another YUM YUM</h4> 
+    </div>
+  </div>
+</div>
+<div class="container row justify-content-center " style="width: 75%; margin: 2em auto;">
+  <form action="/restaurantlists" method="POST">
+    <div class="mb-3 d-flex flex-column">
+      <label for="name" >餐廳:</label>
+      <input name="name" type="text" style="width: 80%" placeholder="Name..." aria-describedby="basic-addon1">
+    <div class="mb-3 d-flex flex-column">
+      <label for="category">餐廳類型:</label>
+      <select name="category" class="form-select" aria-label="Default select example">
+        <option value="日本料理">日本料理</option>
+        <option value="義式料理">義式料理</option>
+        <option value="美式料理">美式料理</option>
+        <option value="中東料理">中東料理</option>
+      </select>
+    </div>  
+    <div class="mb-3 d-flex flex-column">
+      <label for="phone">電話號碼:</label>
+      <input name="phone" type="text" placeholder="ex:09xxxxxxxx">
+      
+      
+    </div> 
+    <div class="mb-3 d-flex flex-column">
+      <label for="location">地址:</label>
+      <input name="location" type="text" placeholder="地點...">
+    </div>
+    <div class="mb-3 d-flex flex-column">
+      <label for="description" class="form-label">寫下你的評論:</label>
+      <textarea name="description" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="add btn btn-primary" >推薦</button>
+  </form>
+</div>
