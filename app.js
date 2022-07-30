@@ -43,20 +43,32 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 // 搜尋
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   //依據餐廳名稱或類別進行搜尋
-//   const restaurants = restaurantList.results.filter((item) => {
-//     return item.name.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`) || item.category.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`)})
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  
+  return RestaurantList.find()   //依據餐廳名稱或類別進行搜尋
+    .lean()
+    .then(restaurant => {
+      const filteredRestaurant = restaurant.filter(item => item.name.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`) || item.category.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`))
+      
+      if (filteredRestaurant.length !== 0) {   //若有搜尋成功則顯示結果，若無則重新導回首頁
+        return res.render('index', { restaurants: filteredRestaurant, keyword })
+      } else {
+        return res.redirect('/')
+      }
+    })
+    .catch(err => console.log(err))
+})
     
-//   //有則顯示搜尋結果，無則跳出搜尋失敗的提示
-//   if (restaurants.length >= 1){
-//     res.render('index', { restaurants: restaurants, keyword: keyword })
-//   } else {
-//     const alert = `<a class="error" href="http://localhost:3000/" title="back to HomePage">抱歉! 無符合搜尋條件的結果!</a>`
-//     res.render('index', { alert: alert })
-//   } 
-// })
+    
+    
+  //有則顯示搜尋結果，無則跳出搜尋失敗的提示
+  // if (restaurants.length >= 1){
+  //   res.render('index', { restaurants: restaurants, keyword: keyword })
+  // } else {
+  //   const alert = `<a class="error" href="http://localhost:3000/" title="back to HomePage">抱歉! 無符合搜尋條件的結果!</a>`
+  //   res.render('index', { alert: alert })
+  // } 
 
 // get: new頁面
 app.get('/restaurantlists/new', (req, res) => {
