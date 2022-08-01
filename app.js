@@ -7,25 +7,21 @@ const mongoose = require('mongoose')
 const db = mongoose.connection
 const RestaurantList = require('./models/restaurants')
 
-mongoose.connect(process.env.MONGODB_URI)   //DB連線
-
+//DB連線
+mongoose.connect(process.env.MONGODB_URI)   
 db.on('error', () => {
   console.log('error')
 })
 db.once('open', () => {
   console.log('MongoDB connected!')
 })
-
+//檔案設定
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
-
-//載入handlebars後，設定template engine內容
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-
-
-// 餐廳清單列表
+// 首頁
 app.get('/', (req, res) => {
   return RestaurantList.find()
     .lean()
@@ -33,7 +29,7 @@ app.get('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
-// 餐廳詳細資訊頁面
+// 詳細資訊頁面
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return RestaurantList.findById(id)
@@ -45,7 +41,6 @@ app.get('/restaurants/:id', (req, res) => {
 // 搜尋
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  
   return RestaurantList.find()   //依據餐廳名稱或類別進行搜尋
     .lean()
     .then(restaurant => {
@@ -59,28 +54,26 @@ app.get('/search', (req, res) => {
     })
     .catch(err => console.log(err))
 })
-    
-    
-    
-  //有則顯示搜尋結果，無則跳出搜尋失敗的提示
-  // if (restaurants.length >= 1){
-  //   res.render('index', { restaurants: restaurants, keyword: keyword })
-  // } else {
-  //   const alert = `<a class="error" href="http://localhost:3000/" title="back to HomePage">抱歉! 無符合搜尋條件的結果!</a>`
-  //   res.render('index', { alert: alert })
-  // } 
 
-// get: new頁面
+// get: 新增頁面
 app.get('/restaurantlists/new', (req, res) => {
   console.log('conneting to new page')
   res.render('new')
 })
 
-//post: new頁面
+//post: 新增頁面
 app.post('/restaurantlists', (req, res) => {
   console.log(req.body)
   return RestaurantList.create(req.body)
     .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
+//get: 編輯頁面
+app.get('/restaurantlists/edit', (req, res) => {
+  return RestaurantList.find()
+    .lean()
+    .then(restaurants => res.render('edit', { restaurants }))
     .catch(err => console.log(err))
 })
 

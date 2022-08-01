@@ -73,13 +73,29 @@ header {
 }
 
 .edit-btn {
-  position: static;
-  margin: 10px 10px 25px 85%;
+  color:#9b4b4b;
+}
+.edit-btn:hover {
+  color: #fce2cf;
+  text-decoration: none;
+}
+
+.recommend-btn {
+  color: #9b4b4b;
+}
+
+.recommend-btn:hover {
+  color: #fce2cf;
+  text-decoration: none;
+}
+
+.minus-btn {
   color:#9b4b4b;
 }
 
-.edit-btn:hover {
+.minus-btn:hover {
   color: #fce2cf;
+  text-decoration: none;
 }
 .card {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);

@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <div class="d-flex flex-row-reverse p-4" style="width: 100%;">
+    <a href="./restaurantlists/edit" class="edit-btn"><i class="edit-btn m-2 d-flex justify-content-end fa-solid fa-pen-to-square fa-2xl" title="編輯"></i></a>
+    <a href="./restaurantlists/new" class="recommend-btn">
+      <i class="recommend-btn m-2 d-flex justify-content-end fa-solid fa-circle-plus fa-2xl" title="新增清單"></i></a>
+    
+  </div>
+
+  <div class="row">
+    <div class="col-md-10 col-12 mx-auto">
+      <div class="card-columns">
+      
+        {{#each restaurants}}
+        <a href="/restaurants/{{ this._id }}" class="text-secondary">
+          
+          <div class="card mb-3 ">
+            
+            <img class="card-img-top" src="{{this.image}}" alt="{{ this.name }}">
+            <div class="card-body p-3">
+              <h6 class="card-title mb-1">{{this.name}}</h6>
+              
+              <div class="restaurant-category mb-1">
+                <i class="fas fa-utensils pr-2"></i>{{this.category}}
+              </div>
+
+              <span class="badge badge-pill badge-danger font-weight-normal">
+                {{this.rating}}
+                <i class="fas fa-star fa-xs"></i>
+              </span>
+              <a href="./restaurantlists/edit" class="minus-btn"><button class="btn minus-btn btn-white fa-solid fa-circle-minus fa-xl rounded-pill me-1" title="從清單中移除"></button></a>
+            </div>
+          </div>
+        </a>
+        {{/each}}
+
+      </div>
+    </div>
+  </div>
+</div>
