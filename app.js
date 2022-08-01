@@ -46,11 +46,12 @@ app.get('/search', (req, res) => {
     .then(restaurant => {
       const filteredRestaurant = restaurant.filter(item => item.name.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`) || item.category.toLowerCase().replace(/\s*/g, '').includes(`${keyword.toLowerCase().replace(/\s*/g, '')}`))
       
-      if (filteredRestaurant.length !== 0) {   //若有搜尋成功則顯示結果，若無則重新導回首頁
-        return res.render('index', { restaurants: filteredRestaurant, keyword })
-      } else {
-        return res.redirect('/')
-      }
+      // if (filteredRestaurant.length !== 0) {   //若有搜尋成功則顯示結果，若無則重新導回首頁
+      //   return res.render('index', { restaurants: filteredRestaurant, keyword })
+      // } else {
+      //   return res.redirect('/')
+      // }
+      filteredRestaurant.length !== 0 ? res.render('index', { restaurants: filteredRestaurant, keyword }) : res.redirect('/')
     })
     .catch(err => console.log(err))
 })
