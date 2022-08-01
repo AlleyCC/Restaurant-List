@@ -56,14 +56,14 @@ app.get('/search', (req, res) => {
 })
 
 // get: 新增頁面
-app.get('/restaurantlists/new', (req, res) => {
+app.get('/restaurants/new', (req, res) => {
   console.log('conneting to new page')
+  
   res.render('new')
 })
 
 //post: 新增頁面
 app.post('/restaurantlists', (req, res) => {
-  
   return RestaurantList.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
@@ -71,7 +71,7 @@ app.post('/restaurantlists', (req, res) => {
 
 //get: 編輯頁面
 app.get('/restaurantlists/:id/edit', (req, res) => {
-  const id = req.params.id
+  const { id } = req.params
   return RestaurantList.findById(id)
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
@@ -80,7 +80,7 @@ app.get('/restaurantlists/:id/edit', (req, res) => {
 
 //post: 更新已編輯內容
 app.post('/restaurantlists/:id', (req, res) => {
-  const id = req.params.id
+  const { id } = req.params
   const update = req.body
   
   return RestaurantList.findByIdAndUpdate(id, update)
@@ -89,16 +89,12 @@ app.post('/restaurantlists/:id', (req, res) => {
 })
 
 //delete:刪除清單
-app.delete('/restaurantlists/:id/delete', (req, res) => {
-  
-  const id = req.params.id
-  console.log('req.params:',req.params)
-  console.log('req.params.id', id)
-  return RestaurantList.findByIdAndRemove(id)
-    .lean()
+app.post('/restaurantlists/:id/delete', (req, res) => {
+  const { id } = req.params
+  return RestaurantList.findById(id)
+    .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
-
+    .catch((err) => console.log(err))
 })
 
 // server監聽設定

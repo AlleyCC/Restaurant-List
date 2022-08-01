@@ -10,28 +10,22 @@ header {
   color: #226089;
 }
 
-.add, .recommend {
-  background-color: #4592af;
-    /* Green */
-  border: none;
-  border-radius: 1em;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+.update-btn, .back-btn {
+  background-color: #9b4b4b;
+  border-color: #9b4b4b;
+  border-radius: 2em;
+  margin-top: 2em;
+ 
 }
 
-.recommend:hover {
-  background-color:#226089;
-  color: white;
+
+.update-btn:hover, .back-btn:hover {
+  background-color: #fce2cf;
+  border-color: #fce2cf;
+  color: #9b4b4b;
 }
 
-.add:hover {
-  background-color: #226089;
-  color: white;
-}
+
 .banner {
   position: relative;
   z-index: -1;
@@ -72,10 +66,11 @@ header {
   border-color: #ced4da;
 }
 
-.edit-btn {
+.edit-btn, .recommend-btn {
   color:#9b4b4b;
 }
-.edit-btn:hover {
+.edit-btn:hover,
+.recommend-btn:hover {
   color: #fce2cf;
   text-decoration: none;
 }
@@ -87,28 +82,20 @@ header {
   text-decoration: none;
 }
 
-.recommend-btn {
-  color: #9b4b4b;
-}
-
-
-.recommend-btn:hover {
-  color: #fce2cf;
-  text-decoration: none;
-}
-
-.minus-btn:hover {
-  color: #fce2cf;
-  text-decoration: none;
-} 
-
 .minus-btn {
   color:#9b4b4b;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: default;
+  margin-top: -2.2px;
+  margin-left: -5px;
 }
 
 .minus-btn:hover {
   color: #fce2cf;
   text-decoration: none;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .card {
