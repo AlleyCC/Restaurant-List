@@ -1,17 +1,60 @@
 <div class="container mt-5">
-  <div class="d-flex flex-row-reverse p-4" style="width: 100%;">
-    <a href="./restaurantlists/edit" class="edit-btn"><i class="edit-btn m-2 d-flex justify-content-end fa-solid fa-pen-to-square fa-2xl" title="編輯"></i></a>
+  <div class="d-flex flex-row-reverse p-4" style="width: 95%;">
+    <a href="/" class="edit-btn"><i class="edit-btn m-2 d-flex justify-content-end fa-solid fa-house fa-2xl" title="Homepage"></i></a>
     <a href="./restaurantlists/new" class="recommend-btn">
       <i class="recommend-btn m-2 d-flex justify-content-end fa-solid fa-circle-plus fa-2xl" title="新增清單"></i></a>
     
   </div>
-
-  <div class="row">
+  <div class="container search-bar">
+    <div class="search-bar-outer">
+      <div class="search-bar-inner text-center">
+        <h4 class="mb-2">Me Find Another YUM YUM</h4>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container row justify-content-center " style="width: 75%; margin: 2em auto;">
+    <form action="/restaurantlists/{{ restaurant._id }}" method="POST">
+      <div class="mb-3 d-flex flex-column">
+        <label for="name">餐廳:</label>
+        <input name="name" type="text" style="width: 80%" placeholder="Name..." aria-describedby="basic-addon1" value="{{ restaurant.name }}">
+        <div class="mb-3 d-flex flex-column">
+          <label for="category">餐廳類型:</label>
+          <select name="category" class="form-select" aria-label="Default select example" value="{{restaurant.category}}">
+            <option value="日本料理">日本料理</option>
+            <option value="義式料理">義式料理</option>
+            <option value="美式料理">美式料理</option>
+            <option value="中東料理">中東料理</option>
+          </select>
+        </div>
+        <div class="mb-3 d-flex flex-column">
+          <label for="phone">電話號碼:</label>
+          <input name="phone" type="text" placeholder="ex:09xxxxxxxx" value="{{ restaurant.phone }}">
+  
+  
+        </div>
+        <div class="mb-3 d-flex flex-column">
+          <label for="location">地址:</label>
+          <input name="location" type="text" placeholder="地點..." value="{{ restaurant.location }}">
+        </div>
+        <div class="mb-3 d-flex flex-column">
+          <label for="image">餐廳照片:</label>
+          <input type="file" id="myFile" name="image" value="{{ restaurant.image }}">
+        </div>
+        <div class="mb-3 d-flex flex-column">
+          <label for="description" class="form-label">寫下你的評論:</label>
+          <textarea name="description" class="form-control" rows="4" >{{ restaurant.description }}</textarea>
+        </div>
+  
+        <button type="submit" class="add btn btn-primary">更新</button>
+    </form>
+  </div>
+  {{!-- <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
       
-        {{#each restaurants}}
-        <a href="/restaurants/{{ this._id }}" class="text-secondary">
+        {{#each restaurant}}
+        <a href="/restaurants/{{ this._id }}/edit" class="text-secondary">
           
           <div class="card mb-3 ">
             
@@ -35,5 +78,5 @@
 
       </div>
     </div>
-  </div>
+  </div> --}}
 </div>

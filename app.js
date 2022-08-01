@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 })
 
 // 詳細資訊頁面
-app.get('/restaurants/:id', (req, res) => {
+app.get('/restaurantlists/:id', (req, res) => {
   const id = req.params.id
   return RestaurantList.findById(id)
     .lean()
@@ -63,18 +63,42 @@ app.get('/restaurantlists/new', (req, res) => {
 
 //post: 新增頁面
 app.post('/restaurantlists', (req, res) => {
-  console.log(req.body)
+  
   return RestaurantList.create(req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
 //get: 編輯頁面
-app.get('/restaurantlists/edit', (req, res) => {
-  return RestaurantList.find()
+app.get('/restaurantlists/:id/edit', (req, res) => {
+  const id = req.params.id
+  return RestaurantList.findById(id)
     .lean()
-    .then(restaurants => res.render('edit', { restaurants }))
+    .then(restaurant => res.render('edit', { restaurant }))
     .catch(err => console.log(err))
+})
+
+//post: 更新已編輯內容
+app.post('/restaurantlists/:id', (req, res) => {
+  const id = req.params.id
+  const update = req.body
+  
+  return RestaurantList.findByIdAndUpdate(id, update)
+    .then(restaurant => res.redirect(`/restaurantlists/${id}`)) //重新導向至詳細資訊頁面
+    .catch(err => console.log(err))
+})
+
+//delete:刪除清單
+app.delete('/restaurantlists/:id/delete', (req, res) => {
+  
+  const id = req.params.id
+  console.log('req.params:',req.params)
+  console.log('req.params.id', id)
+  return RestaurantList.findByIdAndRemove(id)
+    .lean()
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+
 })
 
 // server監聽設定
