@@ -1,12 +1,12 @@
 <!-- search bar -->
-<div class="container search-bar">
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
+<div class="container-fluid search-bar d-flex">
+  <div class="search-bar-outer mt-4"style="height: 15%; width: 40%;">
+    <div class="search-bar-inner" style="height: 20%;">
       <form action="/search" method="GET">
-        <h4 class="mb-2">尋找餐廳：</h4>
+        <h4 class="mb-2 me-4">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-            value="{{keyword}}" aria-describedby="search-button">
+            value="{{ keyword }}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
           </div>
@@ -14,20 +14,30 @@
       </form>
     </div>
   </div>
+  {{!-- 排序選單 --}}
+  <div class="sort" style="margin: 8%;width: 10%;">
+    <form action="/" method="GET">
+      <select class="form-select ms-1" name="sort" onchange="displaySwitch(this)" style="width: 150px;" aria-label="Default select example">
+        <option value="#">sort</option>
+        <option value="asc">A->Z</option>
+        <option value="desc">Z->A</option>
+        <option value="category">類別</option>
+        <option value="locatoin">地區</option>
+      </select>
+    </form> 
+  </div>
 </div>
 
 <!-- restaurant list -->
 
 
 <div class="container mt-5">
-  
   {{!-- <div class="m-2">{{{alert}}}</div> --}}
   <div class=" row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-columns">
         {{!-- <p class="d-flex justify-content-center">{{{alert}}}</p> --}}
       
-        
         {{#each restaurants}}
         <div class="card mb-3" >
           <a href="./restaurantlists/{{ this._id }}" class="text-secondary"></a>
@@ -45,10 +55,9 @@
                 <i class="fas fa-star fa-xs"></i>
               </span>
             </div>
-            
-          
+
           <div class="card-footer bg-light d-flex flex-row-reverse p-2">
-            <form action="./restaurantlists/{{ this._id }}/delete" method="POST" class="minus-btn">
+            <form action="./restaurantlists/{{ this._id }}?_method=DELETE" method="POST" class="minus-btn">
               <button class="minus-btn btn-light btn-outline-light m-1 d-flex justify-content-end " title="從清單中移除"><i
                   class="fa-solid fa-circle-minus rounded-pill fa-lg"></i></button>
             </form>
@@ -67,3 +76,9 @@
     </div>
   </div>
 </div>
+<script>
+  function displaySwitch(value) {
+    const selectedOption = document.querySelector('.form-select')
+    console.log(selectedOption.value)
+  }
+</script>

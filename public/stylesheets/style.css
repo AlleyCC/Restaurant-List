@@ -10,6 +10,18 @@ header {
   color: #226089;
 }
 
+.create-btn {
+  color: #4592af;
+  background-color: white;
+  border-color: #4592af;
+}
+
+.create-btn:hover {
+  color: #226089;
+  background-color: white;
+  border-color: #226089;
+}
+
 .update-btn, .back-btn {
   background-color: #9b4b4b;
   border-color: #9b4b4b;

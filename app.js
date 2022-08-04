@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const db = mongoose.connection
 const RestaurantList = require('./models/restaurants')
+const methodOverride = require('method-override')
 
 //DB連線
 mongoose.connect(process.env.MONGODB_URI)   
@@ -20,12 +21,13 @@ app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(methodOverride('_method'))
 
 // 首頁
 app.get('/', (req, res) => {
   return RestaurantList.find()
     .lean()
-    .then(restaurants => res.render('index', {  restaurants }))
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(err => console.error(err))
 })
 
@@ -80,7 +82,7 @@ app.get('/restaurantlists/:id/edit', (req, res) => {
 })
 
 //post: 更新已編輯內容
-app.post('/restaurantlists/:id', (req, res) => {
+app.put('/restaurantlists/:id', (req, res) => {
   const { id } = req.params
   const update = req.body
   
@@ -90,7 +92,7 @@ app.post('/restaurantlists/:id', (req, res) => {
 })
 
 //delete:刪除清單
-app.post('/restaurantlists/:id/delete', (req, res) => {
+app.delete('/restaurantlists/:id', (req, res) => {
   const { id } = req.params
   return RestaurantList.findById(id)
     .then(restaurant => restaurant.remove())
