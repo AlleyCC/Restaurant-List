@@ -2,29 +2,25 @@ const express = require('express')
 const router = express.Router()
 const RestaurantList = require('../../models/restaurants')
 
-
-// 詳細資訊頁面
-router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return RestaurantList.findById(id)
-    .lean()
-    .then(restaurant => res.render('show', { restaurant }))
-    .catch(err => console.log(err))
-})
-
-
-
 // get: 新增頁面
 router.get('/new', (req, res) => {
   console.log('conneting to new page')
-
-  res.render('new')
+  return res.render('new')
 })
 
 //post: 新增頁面
 router.post('/', (req, res) => {
   return RestaurantList.create(req.body)
     .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
+// 詳細資訊頁面
+router.get('/:id', (req, res) => {
+  const id = req.params.id
+  return RestaurantList.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
     .catch(err => console.log(err))
 })
 

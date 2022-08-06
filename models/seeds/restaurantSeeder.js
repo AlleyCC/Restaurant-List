@@ -1,13 +1,10 @@
 const mongoose = require('mongoose')
-const db = mongoose.connection
 const RestaurantList = require('../restaurants')
 const restaurants = require('../../restaurant')
-const error = require('mongoose/lib/error')
-mongoose.connect(process.env.MONGODB_URI)
+const db = require('../../config/mongoose')
 
-db.on('error', () => {
-  console.log('error')
-})
+
+
 db.once('open', () => {
   console.log('MONGODB connected successfully!')
   const restaurantsData = restaurants.results
