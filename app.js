@@ -2,8 +2,10 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const session = require('express-session')
 const routes = require('./routes/index')
+const session = require('express-session')
+const usePassport = require('./config/passport')
+
 require('./config/mongoose')
 
 const app = express()
@@ -21,6 +23,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+usePassport(app)
+
+
 app.use(routes)
 // server監聽設定
 app.listen(port, () =>{
