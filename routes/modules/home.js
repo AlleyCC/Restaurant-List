@@ -4,7 +4,9 @@ const RestaurantList = require('../../models/restaurants')
 
 // 首頁
 router.get('/', (req, res) => {
-  return RestaurantList.find()
+  const userId = req.user._id
+  
+  return RestaurantList.find({ userId })
     .lean()
     .then(restaurants => res.render('index', { restaurants }))
     .catch(err => console.error(err))
