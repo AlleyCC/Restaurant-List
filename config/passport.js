@@ -7,15 +7,15 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
   
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (username, password, done) => {
-    User.findOne({ username: username })
+  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    User.findOne({ email })
       .then(user => {
         if (!user)  return done(null, false, { message: 'This email is not registered.' })
-        if (password !== password){
+        if (user.password !== password){
           return done(null, false, { message: 'Password is not correct.' })
         }
         return done(null, user)
-        })
+      })
       .catch(err => done(err, false))
       })
     )
