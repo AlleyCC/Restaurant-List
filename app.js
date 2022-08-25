@@ -16,7 +16,7 @@ const port = 3000
 app.use(express.static('public'))
 app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
-app.use(flash())
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
@@ -25,7 +25,7 @@ app.use(session({
   saveUninitialized: true
 }))
 usePassport(app)
-
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
