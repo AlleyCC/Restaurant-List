@@ -2,6 +2,7 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const flash = require('connect-flash')
 const routes = require('./routes/index')
 const session = require('express-session')
 const usePassport = require('./config/passport')
@@ -13,11 +14,11 @@ const port = 3000
 
 //檔案設定
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(flash())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
 app.use(session({
   secret: 'IAmUrSecret',
   resave: false,
@@ -28,6 +29,8 @@ usePassport(app)
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
