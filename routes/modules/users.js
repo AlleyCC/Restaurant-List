@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../../models/users')
+
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
+
+const User = require('../../models/users')
 
 router.get('/login', (req, res) => {
   res.render('login')
@@ -10,8 +12,9 @@ router.get('/login', (req, res) => {
 
 
 router.post('/login', passport.authenticate('local', {
-    failureRedirect: '/users/login',
-    successRedirect: '/'
+  successRedirect: '/',  
+  failureRedirect: '/users/login'
+    
   })
 )
 
@@ -22,13 +25,14 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const { name, email, password, passwordConfirm } = req.body
   const errors = []
+  
   if ( !name || !email || !password || !passwordConfirm ){
     errors.push({ message: '欄位填寫不完整'})
   }
   if ( password !== passwordConfirm){
     errors.push({ message: '密碼與確認密碼不相符' })
   }
-  if (errors.length){
+  if (errors.length){ //傳入errors訊息
     res.render('register', {
       name,
       email,
@@ -49,7 +53,8 @@ router.post('/register', (req, res) => {
       errors
     })
     }   
-    return bcrypt
+    
+    return bcrypt  //產生雜湊密碼
       .genSalt(10)
       .then(salt => bcrypt.hash(password, salt))
       .then(hash =>
@@ -61,6 +66,7 @@ router.post('/register', (req, res) => {
       .then(() => res.redirect('/'))
       .catch(err=> console.log(err))
   })
+  .catch(err => console.log(err))
 })
 
 router.get('/logout', (req, res) => {
