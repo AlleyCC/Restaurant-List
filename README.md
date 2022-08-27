@@ -36,7 +36,7 @@
  ```
  3.安裝npm
  ```
- npm run dev
+ npm run install
  ```
  4.安裝其他 [套件](#environment-setup)
  
