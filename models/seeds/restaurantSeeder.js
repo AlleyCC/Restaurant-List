@@ -30,7 +30,9 @@ db.once('open', () => {
     })
   ) 
   .then(() => {
-    console.log('done')})
+    console.log('done')
+    //process.exit()
+  })
   .catch(err => console.log('err'))
 })
 
