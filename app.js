@@ -17,10 +17,10 @@ const app = express()
 const PORT = process.env.PORT
 
 //檔案、樣板設定
-app.use(express.static('public'))
+
 app.engine('hbs', engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
-
+app.use(express.static('public'))
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

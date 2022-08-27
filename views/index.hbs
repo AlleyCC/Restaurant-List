@@ -17,12 +17,12 @@
   {{!-- 排序選單 --}}
   <div class="sort" style="margin: 8%;width: 10%;">
     <form action="/" method="GET">
-      <select class="form-select ms-1" name="sort" onchange="displaySwitch(this)" style="width: 150px;" aria-label="Default select example">
+      <select class="form-select ms-1" name="sort" onChange="window.location.href=this.value" selected="selected" style="width: 150px;" aria-label="Default select example">
         <option value="#">sort</option>
-        <option value="asc">A->Z</option>
-        <option value="desc">Z->A</option>
-        <option value="category">類別</option>
-        <option value="location">地區</option>
+        <option {{asc_selected}}value="sort_asc">A->Z</option>
+        <option {{desc_selected}}value="sort_desc">Z->A</option>
+        <option {{category_selected}}value="sort_category">類別</option>
+        <option {{location_selected}}value="sort_location">地區</option>
       </select>
     </form> 
   </div>
@@ -32,12 +32,9 @@
 
 
 <div class="container mt-5">
-  
-  <div class=" row">
-    <div class="col-md-10 col-12 mx-auto">
-      <div class="card-columns">
-        
-      
+  <div class="row">
+    <div class="col-md-8 col-12 mx-auto">
+      <div class="row row-cols-1 row-cols-md-3 g-5 ">
         {{#each restaurants}}
         <div class="card mb-3" >
           <a href="./restaurantlists/{{ this._id }}" class="text-secondary"></a>
@@ -70,15 +67,10 @@
           </div>
           
         </div>
-        {{/each}}
-  
+      {{/each}}
       </div>
+    
     </div>
   </div>
+  
 </div>
-<script>
-  function displaySwitch(value) {
-    const selectedOption = document.querySelector('.form-select')
-    console.log(selectedOption.value)
-  }
-</script>
