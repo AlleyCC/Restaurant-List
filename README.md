@@ -8,9 +8,10 @@
 1.瀏覽: 各式餐廳 + 各餐廳詳細資訊
 2.點擊資訊頁面中的地址，可直接連結至Google Map       
 3.搜尋: 依照餐廳名稱或類別進行搜尋餐廳
-+4.新增: 新的餐廳至清單中
-+5.編輯: 餐廳詳細資訊
-+6.刪除: 餐廳清單中不想留存的餐廳名單
+4.新增: 新的餐廳至清單中
+5.編輯: 餐廳詳細資訊
+6.刪除: 餐廳清單中不想留存的餐廳名單
++7.使用者管理帳號系統: 建立屬於自己的美食餐廳清單
 ```               
 
 
@@ -30,25 +31,21 @@
  ```
  git clone https://github.com/AlleyCC/Restaurant-List.git
  ```
- 2.cd進入檔案夾中
- ```
- cd Restaurant-List
- ```
- 3.安裝npm
- ```
- npm run install
- ```
- 4.安裝其他 [套件](#environment-setup)
+ 2.cd進入檔案夾中並安裝npm
  
- 5.匯入內建預設資料
+ 3.安裝其他套件: 詳閱package.json檔中的"dependencies"
+ 
+ 4.於.env.example檔中輸入你的FACEBOOK_ID以及FACEBOOK_SECRET
+ 
+ 5.匯入內建預設使用者資料
  ```
  npm run seed
  ```
- 5.執行檔案
+ 6.執行檔案
  ```
  npm run dev
  ```
- 6.至瀏覽器網址欄輸入
+ 7.至瀏覽器網址欄輸入
  ```
  http://localhost:3000
  ```
