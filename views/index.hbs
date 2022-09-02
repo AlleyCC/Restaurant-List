@@ -19,10 +19,10 @@
     <form action="/" method="GET">
       <select class="form-select ms-1" name="sort" onChange="window.location.href=this.value" selected="selected" style="width: 150px;" aria-label="Default select example">
         <option value="#">sort</option>
-        <option {{asc_selected}}value="sort_asc">A->Z</option>
-        <option {{desc_selected}}value="sort_desc">Z->A</option>
-        <option {{category_selected}}value="sort_category">類別</option>
-        <option {{location_selected}}value="sort_location">地區</option>
+        <option {{asc_selected}}value="/sort?sort=asc">A->Z</option>
+        <option {{desc_selected}}value="/sort?sort=desc">Z->A</option>
+        <option {{category_selected}}value="/sort?sort=category">類別</option>
+        <option {{location_selected}}value="/sort?sort=location">地區</option>
       </select>
     </form> 
   </div>

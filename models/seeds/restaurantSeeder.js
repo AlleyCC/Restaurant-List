@@ -1,13 +1,15 @@
-const RestaurantList = require('../restaurants')
 const restaurants = require('./restaurant').results //引入json檔
-const db = require('../../config/mongoose')
 const bcrypt = require('bcryptjs')
-const User = require('../users')
-const SEED_USER = require('./users').users
 
 if (process.env.NODE_ENV !== 'production'){
   require('dotenv').config()
 }
+const db = require('../../config/mongoose')
+const RestaurantList = require('../restaurants')
+const User = require('../users')
+const SEED_USER = require('./users').users
+
+
 db.once('open', () => {    
   Promise.all(
     SEED_USER.map(user => {

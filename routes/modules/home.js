@@ -26,44 +26,70 @@ router.get('/search', (req, res) => {
 })
 
 //分類搜尋:名稱排列
-router.get('/sort_asc', (req, res) =>{
+router.get('/sort', (req, res) =>{
   const userId = req.user._id
-  return RestaurantList
+  const sort = req.query.sort
+  console.log(sort)
+  if (sort === 'asc') {
+    return RestaurantList
     .find({userId})
     .lean()
     .sort({ name: 'asc' })
     .then(restaurants => res.render('index', { restaurants, asc_selected: 'selected' }))
     .catch(err => console.log(err))
-})
-
-router.get('/sort_desc', (req, res) =>{
-  const userId = req.user._id
-  return RestaurantList
+  } else if (sort === 'desc') {
+    return RestaurantList
     .find({userId})
     .lean()
     .sort({ name: 'desc' })
     .then(restaurants => res.render('index', { restaurants, desc_selected: 'selected' }))
     .catch(err => console.log(err))
-})
-//按category
-router.get('/sort_category', (req, res) =>{
-  const userId = req.user._id
-  return RestaurantList
+  } else if (sort === 'category') {
+    return RestaurantList
     .find({userId})
     .lean()
-    .sort({ category: 'asc' })
+    .sort({ sort: 'asc' })
     .then(restaurants => res.render('index', { restaurants, category_selected: 'selected' }))
     .catch(err => console.log(err))
-})
-//按location
-router.get('/sort_location', (req, res) =>{
-  const userId = req.user._id
-  return RestaurantList
+  } else if (sort === 'location') {
+    return RestaurantList
     .find({userId})
     .lean()
     .sort({ location: 'asc' })
     .then(restaurants => res.render('index', { restaurants, location_selected: 'selected' }))
     .catch(err => console.log(err))
+  }
+  
 })
+
+// router.get('/sort_desc', (req, res) =>{
+//   const userId = req.user._id
+//   return RestaurantList
+//     .find({userId})
+//     .lean()
+//     .sort({ name: 'desc' })
+//     .then(restaurants => res.render('index', { restaurants, desc_selected: 'selected' }))
+//     .catch(err => console.log(err))
+// })
+//按category
+// router.get('/sort_category', (req, res) =>{
+//   const userId = req.user._id
+//   return RestaurantList
+//     .find({userId})
+//     .lean()
+//     .sort({ category: 'asc' })
+//     .then(restaurants => res.render('index', { restaurants, category_selected: 'selected' }))
+//     .catch(err => console.log(err))
+// })
+//按location
+// router.get('/sort_location', (req, res) =>{
+//   const userId = req.user._id
+//   return RestaurantList
+//     .find({userId})
+//     .lean()
+//     .sort({ location: 'asc' })
+//     .then(restaurants => res.render('index', { restaurants, location_selected: 'selected' }))
+//     .catch(err => console.log(err))
+// })
 
 module.exports = router
